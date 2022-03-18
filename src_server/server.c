@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/18 10:42:19 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/03/18 15:43:41 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ static void	sig_handler(int sig, siginfo_t *info, void *context);
 
 int	main(void)
 {
-	pid_t	pid;
+	pid_t				pid;
 	struct sigaction	action;
 
 	pid = getpid();
 	ft_printf("%d\n", pid);
 	action.sa_sigaction = sig_handler;
-	// action.sa_handler = &sig_handler;
 	action.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &action, 0))
 	{

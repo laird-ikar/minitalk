@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:14 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/18 10:39:02 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:17:05 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,14 @@ int	main(int argc, char *argv[])
 	}
 	pid_serv = ft_atoi(argv[1]);
 	send_message(argv[2], pid_serv);
-	//pause();
 }
 
 static void	sig_handler(int sig)
 {
 	(void) sig;
-		ft_printf(" > Your message has been correctly shreked to \
+	ft_printf(" > Your message has been correctly shreked to \
 the server my dude ! \\_ÒwÓ_/\n");
-
 }
-
 
 static void	send_message(char *msg, int pid_serv)
 {
@@ -67,5 +64,4 @@ static void	send_message(char *msg, int pid_serv)
 		kill(pid_serv, SIGUSR2);
 		usleep(100);
 	}
-
 }

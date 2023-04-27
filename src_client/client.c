@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:14 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/21 14:17:05 by bguyot           ###   ########.fr       */
+/*   Updated: 2023/04/27 10:58:16 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static void	sig_handler(int sig);
 static void	send_message(char *msg, int pid_serv);
+static void	send_signal(int pid, int sig);
 
 int	main(int argc, char *argv[])
 {
-	int		pid_serv;
+	int					pid_serv;
 
 	if (argc != 3)
 		return (ft_printf("Usage : ./client [PID] [message]\n"));
@@ -28,13 +29,16 @@ int	main(int argc, char *argv[])
 	}
 	pid_serv = ft_atoi(argv[1]);
 	send_message(argv[2], pid_serv);
+	pause();
 }
 
 static void	sig_handler(int sig)
 {
-	(void) sig;
-	ft_printf(" > Your message has been correctly shreked to \
-the server my dude ! \\_ÒwÓ_/\n");
+	if (sig == SIGUSR2)
+	{
+		ft_putstr_fd("Acknowledgment of 0 received, message go sent.", 1);
+		exit(0);
+	}
 }
 
 static void	send_message(char *msg, int pid_serv)
@@ -49,19 +53,21 @@ static void	send_message(char *msg, int pid_serv)
 		j = 8;
 		c = msg[i];
 		while (j--)
-		{
+		{	
 			if (c >> j & 1)
-				kill(pid_serv, SIGUSR1);
+				send_signal(pid_serv, SIGUSR1);
 			else
-				kill(pid_serv, SIGUSR2);
-			usleep(100);
+				send_signal(pid_serv, SIGUSR2);
 		}
 		i++;
 	}
 	j = 8;
 	while (j--)
-	{
-		kill(pid_serv, SIGUSR2);
-		usleep(100);
-	}
+		send_signal(pid_serv, SIGUSR1);
+}
+
+static void	send_signal(int pid, int sig)
+{
+	kill(pid, sig);
+	pause();
 }

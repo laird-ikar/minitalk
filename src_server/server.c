@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/18 15:43:41 by bguyot           ###   ########.fr       */
+/*   Updated: 2023/04/27 11:22:49 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 	pid_t				pid;
 	struct sigaction	action;
 
-	pid = getpid();
+	pid = getpid();`
 	ft_printf("%d\n", pid);
 	action.sa_sigaction = sig_handler;
 	action.sa_flags = SA_SIGINFO;
@@ -40,23 +40,28 @@ int	main(void)
 static void	sig_handler(int signum, siginfo_t *info, void *context)
 {
 	static char	c = 0;
-	static int	i = 8;
+	static int	bit_count = 0;
+	static char	buffer[BUFFER_SIZE];
 
-	c |= (signum == SIGUSR1);
-	i--;
-	if (i == 0)
+	(void)context, (void) info;
+	c <<= 1;
+	c |= 0b1 & (signum == SIGUSR1);
+	kill(info->si_pid, SIGUSR1);
+	bit_count++;
+	if (bit_count == 8)
 	{
-		if (c != 0)
-			ft_putchar_fd(c, 1);
-		else
+		buffer[ft_strlen(buffer)] = c;
+		if (!c || ft_strlen(buffer) == BUFFER_SIZE)
 		{
-			kill(info->si_pid, SIGUSR1);
-			ft_putchar_fd('\n', 1);
+			write(1, buffer, ft_strlen(buffer));
+			ft_bzero(buffer, BUFFER_SIZE);
+			if (!c)
+			{
+				kill(info->si_pid, SIGUSR2);
+				write(1, "\n", 1);
+			}
 		}
 		c = 0;
-		i = 8;
+		bit_count = 0;
 	}
-	else
-		c <<= 1;
-	(void) context;
 }

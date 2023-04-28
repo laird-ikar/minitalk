@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2023/04/27 11:22:49 by bguyot           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:23:07 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 	pid_t				pid;
 	struct sigaction	action;
 
-	pid = getpid();`
+	pid = getpid();
 	ft_printf("%d\n", pid);
 	action.sa_sigaction = sig_handler;
 	action.sa_flags = SA_SIGINFO;
@@ -46,18 +46,17 @@ static void	sig_handler(int signum, siginfo_t *info, void *context)
 	(void)context, (void) info;
 	c <<= 1;
 	c |= 0b1 & (signum == SIGUSR1);
-	kill(info->si_pid, SIGUSR1);
 	bit_count++;
 	if (bit_count == 8)
 	{
 		buffer[ft_strlen(buffer)] = c;
-		if (!c || ft_strlen(buffer) == BUFFER_SIZE)
+		if (c == '\0' || ft_strlen(buffer) == BUFFER_SIZE)
 		{
 			write(1, buffer, ft_strlen(buffer));
 			ft_bzero(buffer, BUFFER_SIZE);
 			if (!c)
 			{
-				kill(info->si_pid, SIGUSR2);
+				kill(info->si_pid, SIGUSR1);
 				write(1, "\n", 1);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:14 by bguyot            #+#    #+#             */
-/*   Updated: 2023/04/27 10:58:16 by bguyot           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:22:36 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[])
 
 static void	sig_handler(int sig)
 {
-	if (sig == SIGUSR2)
+	if (sig == SIGUSR1)
 	{
 		ft_putstr_fd("Acknowledgment of 0 received, message go sent.", 1);
 		exit(0);
@@ -63,11 +63,11 @@ static void	send_message(char *msg, int pid_serv)
 	}
 	j = 8;
 	while (j--)
-		send_signal(pid_serv, SIGUSR1);
+		send_signal(pid_serv, SIGUSR2);
 }
 
 static void	send_signal(int pid, int sig)
 {
 	kill(pid, sig);
-	pause();
+	usleep(100);
 }

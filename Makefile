@@ -3,55 +3,56 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
+#    By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/11 17:29:03 by bguyot            #+#    #+#              #
-#    Updated: 2022/03/18 14:00:28 by bguyot           ###   ########.fr        #
+#    Updated: 2023/04/28 10:52:44 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				= minitalk
 SERVER				= server
 CLIENT				= client
+LIBFT				= libs/libft/libft.a
 
-INCLUDE				= ./includes/
-LIBFT				= ./libft/
-DIR_CLIENT			= ./src_client/
-DIR_SERVER			= ./src_server/
+SRCS_SERVER			= srcs/server.c
+SRCS_CLIENT			= srcs/client.c
+INCS_SERVER			= incs/server.h
+INCS_CLIENT			= incs/client.h
 
-FILES_CLIENT		= client.c
-FILES_SERVER		= server.c
+OBJS_SERVER			= $(SRCS_SERVER:.c=.o)
+OBJS_CLIENT			= $(SRCS_CLIENT:.c=.o)
 
-SRC_CLIENT			= $(addprefix $(DIR_CLIENT),$(FILES_CLIENT))
-OBJ_CLIENT			= $(SRC_CLIENT:.c=.o)
-SRC_SERVER			= $(addprefix $(DIR_SERVER),$(FILES_SERVER))
-OBJ_SERVER			= $(SRC_SERVER:.c=.o)
-
-CC					= gcc
+CC					= @gcc
 CFLAGS				= -Wall -Wextra -Werror
-RM					= rm -f
-LIBS				= -Llibft -lft
+RM					= @rm -f
 
-all: $(NAME)
+all:		$(NAME)
 
-$(NAME): $(CLIENT) $(SERVER)
+$(NAME):	$(SERVER) $(CLIENT)
 
-$(CLIENT): $(OBJ_CLIENT)
-	$(MAKE) -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(CLIENT) $(LIBS) $(OBJ_CLIENT)
+$(SERVER):	$(OBJS_SERVER) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT) -o $(SERVER)
 
-$(SERVER): $(OBJ_SERVER)
-	$(MAKE) -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(SERVER) $(LIBS) $(OBJ_SERVER)
+$(CLIENT):	$(OBJS_CLIENT) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT) -o $(CLIENT)
+
+$(OBJS_SERVER):	$(INCS_SERVER) $(SRCS_SERVER)
+	$(CC) $(CFLAGS) -c $(SRCS_SERVER) -o $(OBJS_SERVER)
+
+$(OBJS_CLIENT):	$(INCS_CLIENT) $(SRCS_CLIENT)
+	$(CC) $(CFLAGS) -c $(SRCS_CLIENT) -o $(OBJS_CLIENT)
+
+$(LIBFT):
+	@make -C libs/libft
 
 clean:
-	$(MAKE) clean -C $(LIBFT)
-	$(RM) $(OBJ_CLIENT) $(OBJ_SERVER)
+	$(RM) $(OBJS_SERVER) $(OBJS_CLIENT)
+	@make fclean -C libs/libft
 
-fclean: clean
-	$(MAKE) fclean -C $(LIBFT)
-	$(RM) $(CLIENT) $(SERVER)
+fclean:		clean
+	$(RM) $(SERVER) $(CLIENT)
 
-re:	fclean all
+re:			fclean all
 
-.PHONY:	all clean fclean re
+.PHONY:		all clean fclean re

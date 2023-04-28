@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2023/04/28 10:23:07 by bguyot           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:36:26 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ int	main(void)
 	action.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &action, 0))
 	{
-		perror("Error :");
 		exit(1);
 	}
 	if (sigaction(SIGUSR2, &action, 0))
 	{
-		perror("Error :");
 		exit(1);
 	}
 	while (1)

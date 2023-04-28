@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/12/01 07:56:46 by bguyot           ###   ########.fr       */
+/*   Created: 2022/11/28 12:43:37 by bguyot            #+#    #+#             */
+/*   Updated: 2022/12/06 08:26:10 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include "inc/ft_arr.h"
-# include "inc/ft_cast.h"
-# include "inc/ft_check.h"
-# include "inc/get_next_line.h"
-# include "inc/ft_math.h"
-# include "inc/ft_memory.h"
-# include "inc/ft_put.h"
-# include "inc/ft_string.h"
-# include "inc/ft_list.h"
-# include "inc/ft_buff.h"
-# include "inc/ft_printf.h"
+# include <stdarg.h>
+# include <unistd.h>
+# include "ft_buff.h"
+# include "ft_list.h"
+# include "ft_string.h"
+# include "ft_cast.h"
+# include "ft_math.h"
+
+int		ft_printf(const char *str, ...)
+		__attribute__ ((format (printf, 1, 2)));
 
 #endif

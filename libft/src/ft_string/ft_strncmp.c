@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/12/01 07:56:46 by bguyot           ###   ########.fr       */
+/*   Created: 2022/02/23 13:24:12 by bguyot            #+#    #+#             */
+/*   Updated: 2022/11/28 08:55:57 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "../../inc/ft_string.h"
 
-# include "inc/ft_arr.h"
-# include "inc/ft_cast.h"
-# include "inc/ft_check.h"
-# include "inc/get_next_line.h"
-# include "inc/ft_math.h"
-# include "inc/ft_memory.h"
-# include "inc/ft_put.h"
-# include "inc/ft_string.h"
-# include "inc/ft_list.h"
-# include "inc/ft_buff.h"
-# include "inc/ft_printf.h"
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (i < n - 1 && ((unsigned char *) s1)[i] && ((unsigned char *) s2)[i]
+		&& ((unsigned char *) s1)[i] == ((unsigned char *) s2)[i])
+	{
+		i++;
+	}
+	if (n)
+		return (((unsigned char *) s1)[i] - ((unsigned char *) s2)[i]);
+	return (0);
+}

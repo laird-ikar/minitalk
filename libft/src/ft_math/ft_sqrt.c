@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/12/01 07:56:46 by bguyot           ###   ########.fr       */
+/*   Created: 2022/03/11 08:40:01 by bguyot            #+#    #+#             */
+/*   Updated: 2022/11/28 08:44:31 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "../../inc/ft_math.h"
 
-# include "inc/ft_arr.h"
-# include "inc/ft_cast.h"
-# include "inc/ft_check.h"
-# include "inc/get_next_line.h"
-# include "inc/ft_math.h"
-# include "inc/ft_memory.h"
-# include "inc/ft_put.h"
-# include "inc/ft_string.h"
-# include "inc/ft_list.h"
-# include "inc/ft_buff.h"
-# include "inc/ft_printf.h"
+int	ft_sqrt(int nb)
+{
+	int	i;
 
-#endif
+	i = nb % 2;
+	while (i * i < nb && i < 46340)
+		i += 2;
+	return (i);
+}

@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   c.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/12/01 07:56:46 by bguyot           ###   ########.fr       */
+/*   Created: 2022/11/30 08:02:03 by bguyot            #+#    #+#             */
+/*   Updated: 2022/12/02 17:25:34 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "../../../inc/_ft_printf.h"
 
-# include "inc/ft_arr.h"
-# include "inc/ft_cast.h"
-# include "inc/ft_check.h"
-# include "inc/get_next_line.h"
-# include "inc/ft_math.h"
-# include "inc/ft_memory.h"
-# include "inc/ft_put.h"
-# include "inc/ft_string.h"
-# include "inc/ft_list.h"
-# include "inc/ft_buff.h"
-# include "inc/ft_printf.h"
+t_buff	*c(va_list lst, t_flag *flag)
+{
+	t_buff	*ret;
+	char	data;
 
-#endif
+	ret = ft_calloc(1, sizeof (t_buff));
+	data = va_arg(lst, int);
+	ret->len = 1;
+	ret->data = ft_strndup(&data, 1);
+	return (ret);
+	(void) flag;
+}

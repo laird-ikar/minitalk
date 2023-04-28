@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_arr.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/12/01 07:56:46 by bguyot           ###   ########.fr       */
+/*   Created: 2022/11/28 08:22:10 by bguyot            #+#    #+#             */
+/*   Updated: 2022/11/28 09:44:40 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef FT_ARR_H
+# define FT_ARR_H
 
-# include "inc/ft_arr.h"
-# include "inc/ft_cast.h"
-# include "inc/ft_check.h"
-# include "inc/get_next_line.h"
-# include "inc/ft_math.h"
-# include "inc/ft_memory.h"
-# include "inc/ft_put.h"
-# include "inc/ft_string.h"
-# include "inc/ft_list.h"
-# include "inc/ft_buff.h"
-# include "inc/ft_printf.h"
+# include <stddef.h>
+# include "ft_math.h"
+
+/* Sort the the given array of size size */
+void	ft_sort_int_tab(int *tab, int size);
+
+/* Return the minimum of the array */
+int		ft_tabmin(int *tab, size_t size);
+
+/* Return the minimum of the array */
+int		ft_tabmax(int *tab, size_t size);
+
+/* Return the med of the array */
+int		ft_tabmed(int *tab, int size);
 
 #endif

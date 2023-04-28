@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:14 by bguyot            #+#    #+#             */
-/*   Updated: 2023/04/28 10:22:36 by bguyot           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:36:30 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char *argv[])
 		return (ft_printf("Usage : ./client [PID] [message]\n"));
 	if (signal(SIGUSR1, sig_handler) == SIG_ERR)
 	{
-		perror("Error :");
 		exit(1);
 	}
 	pid_serv = ft_atoi(argv[1]);

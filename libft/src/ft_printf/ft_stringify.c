@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_stringify.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/12/01 07:56:46 by bguyot           ###   ########.fr       */
+/*   Created: 2022/11/29 07:42:03 by bguyot            #+#    #+#             */
+/*   Updated: 2022/12/05 09:20:37 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "../../inc/_ft_printf.h"
 
-# include "inc/ft_arr.h"
-# include "inc/ft_cast.h"
-# include "inc/ft_check.h"
-# include "inc/get_next_line.h"
-# include "inc/ft_math.h"
-# include "inc/ft_memory.h"
-# include "inc/ft_put.h"
-# include "inc/ft_string.h"
-# include "inc/ft_list.h"
-# include "inc/ft_buff.h"
-# include "inc/ft_printf.h"
+/*
+ *	ft_stringify
+ *
+ *	puts back all the tokens in a string
+ *
+ *	token:
+ *		token list to transform in string
+ */
+t_buff	*ft_stringify(t_list *token)
+{
+	t_buff	*ret;
+	t_buff	*tmp;
 
-#endif
+	ret = NULL;
+	while (token)
+	{
+		tmp = ret;
+		ret = ft_bufcat(tmp, ((t_buff *) token->content));
+		ft_bufclear(tmp);
+		token = token->next;
+	}
+	return (ret);
+}

@@ -6,11 +6,11 @@
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:14 by bguyot            #+#    #+#             */
-/*   Updated: 2023/04/28 10:36:30 by bguyot           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:48:44 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/client.h"
+#include "../incs/client.h"
 
 static void	sig_handler(int sig);
 static void	send_message(char *msg, int pid_serv);

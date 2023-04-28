@@ -6,11 +6,11 @@
 /*   By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 07:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2023/04/28 10:36:26 by bguyot           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:48:47 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/server.h"
+#include "../incs/server.h"
 
 static void	sig_handler(int sig, siginfo_t *info, void *context);
 

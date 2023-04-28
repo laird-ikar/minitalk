@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/23 13:24:40 by bguyot            #+#    #+#              #
-#    Updated: 2022/12/08 08:07:12 by bguyot           ###   ########.fr        #
+#    Updated: 2023/04/28 10:56:25 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -179,16 +179,17 @@ CFLAGS			=		-Wall -Wextra -Werror
 OBJ_COLOR		=		"\e[38;5;147m"
 CLN_COLOR		=		"\e[38;5;124m"
 BIN_COLOR		=		"\e[38;5;129m"
+ERRASE_LINE		=		"\e[2K\r"
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
-	@printf $(BIN_COLOR)"\t"$(NAME)"\t\t\t\t[ ✓ ]\n\e[0m"
+	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"$(NAME)"\t\t\t\t[ ✓ ]\n\e[0m"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c -o $@ $<
-	@printf $(OBJ_COLOR)"\t"$@"\n\e[0m"
+	@printf $(ERRASE_LINE)$(OBJ_COLOR)"\t"$@"\e[0m"
 
 clean:
 	$(RM) $(OBJS)

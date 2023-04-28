@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/11 17:29:03 by bguyot            #+#    #+#              #
-#    Updated: 2023/04/28 10:52:44 by bguyot           ###   ########.fr        #
+#    Updated: 2023/04/28 11:01:25 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,31 +27,38 @@ CC					= @gcc
 CFLAGS				= -Wall -Wextra -Werror
 RM					= @rm -f
 
+OBJ_COLOR		=		"\e[38;5;147m"
+CLN_COLOR		=		"\e[38;5;124m"
+BIN_COLOR		=		"\e[38;5;129m"
+ERRASE_LINE		=		"\e[2K\r"
+
 all:		$(NAME)
 
 $(NAME):	$(SERVER) $(CLIENT)
 
 $(SERVER):	$(OBJS_SERVER) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT) -o $(SERVER)
+	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"$(SERVER)"\t\t\t\t[ ✓ ]\n\e[0m"
 
 $(CLIENT):	$(OBJS_CLIENT) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT) -o $(CLIENT)
+	@printf $(ERRASE_LINE)$(BIN_COLOR)"\t"$(CLIENT)"\t\t\t\t[ ✓ ]\n\e[0m"
 
-$(OBJS_SERVER):	$(INCS_SERVER) $(SRCS_SERVER)
-	$(CC) $(CFLAGS) -c $(SRCS_SERVER) -o $(OBJS_SERVER)
-
-$(OBJS_CLIENT):	$(INCS_CLIENT) $(SRCS_CLIENT)
-	$(CC) $(CFLAGS) -c $(SRCS_CLIENT) -o $(OBJS_CLIENT)
+.c.o:	$(INCS_SERVER) $(INCS_CLIENT)
+	@$(CC) $(CFLAGS) -c -o $@ $<
+	@printf $(ERRASE_LINE)$(OBJ_COLOR)"\t"$@"\e[0m"
 
 $(LIBFT):
 	@make -C libs/libft
 
 clean:
 	$(RM) $(OBJS_SERVER) $(OBJS_CLIENT)
+	@printf $(CLN_COLOR)"\tclean "$(NAME)" objects\t\t[ ✓ ]\n\e[0m"
 	@make fclean -C libs/libft
 
 fclean:		clean
 	$(RM) $(SERVER) $(CLIENT)
+	@printf $(CLN_COLOR)"\tclean "$(NAME)" binary\t\t[ ✓ ]\n\e[0m"
 
 re:			fclean all
 
